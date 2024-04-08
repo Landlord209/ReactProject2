@@ -1,0 +1,12 @@
+.topbar{
+    padding-left: 20px;
+    height: 10vh;
+    width: 85vw;
+    background-color: darkblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.topbar h1{
+    color: white;
+}

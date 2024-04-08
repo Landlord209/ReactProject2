@@ -1,10 +1,17 @@
 import {Outlet} from 'react-router-dom'
+import style from "./dash.module.css"
+import SideBar from '../component/navigations/sidebar/SideBar'
+import Topbar from '../component/navigations/topbar/Topbar'
 
 const DashboardLayout = () => {
   return (
-    <div>
-      <h1>DashBoard ready</h1>
-      <Outlet/>
+    <div className={style.section}>
+      <SideBar/>
+      <div className={style.section2}>
+        <Topbar/>
+        <Outlet/>
+      </div>
+      
     </div>
   )
 }
