@@ -30,7 +30,7 @@ export default ()=>{
             <div id="sideWrapper">
                <div id="links">
                     {
-                        links.map(({too, icon, label, id})=>(
+                        links.map(({too, label,icon, id})=>(
                             <NavLinks key={id} too={too}> {icon} {label}  </NavLinks>
                         ))
                     }

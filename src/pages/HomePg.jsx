@@ -1,9 +1,12 @@
+import { useParams } from "react-router-dom"
 
-export default ()=>{
+export default ({lengths})=>{
+   
+    
 
     return(
         <>
-         <h1>Home page</h1>
+         <h1> Number of Registered Users: {lengths} </h1>
         </>
     )
    
