@@ -3,7 +3,7 @@ import DashboardLayout from "./src/layout/DashboardLayout"
 import HomePg from "./src/pages/HomePg"
 import SettingsPg from "./src/pages/SettingsPg"
 import UserPg from "./src/pages/UserPg"
-import UserModal from "./src/pages/UserModal"
+// import UserModal from "./src/pages/UserModal" 
 
 const router = createBrowserRouter([
     {
@@ -26,10 +26,7 @@ const router = createBrowserRouter([
 
       ]          
     },
-    {
-      path:'user',
-      element: <UserModal/>
-    }
+   
 ])
 
 export default router

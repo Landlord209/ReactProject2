@@ -1,8 +1,10 @@
-import { createContext, useState } from "react"
+import { createContext, useContext, useState } from "react"
 import style from "./user.module.css"
 // import NavLinks from "../component/navigations/navlinks/NavLinks"
 import Popup from "reactjs-popup"
 import HomePg from "./HomePg"
+import { formdata } from "../UserContext"
+import UserModal from "./UserModal"
 
 
 
@@ -19,26 +21,29 @@ export default ()=>{
         setRender((rend)=> !rend)
     }
 
-    const [users, setUsers] = useState([])
+    // const [users, setUsers] = useState([])
+    const {users, updateUser} = useContext(formdata)
     const [details, setDetails] = useState({
         name: "",
         email: "",
         file:""
 
     })
-    
+    const {name,email,file} = details
 
 
     const detailHandler=(e)=>{
-        const {name, value} = e.target
-        setDetails({...details,[name]:value})
+        const {name, value, files} = e.target
+        setDetails({...details,
+            [name]:name ==="file" ?URL.createObjectURL(files[0]) :value
+        })
         
     }
  
     const addUser = (event)=>{
         event.preventDefault()
-        if(details.name && details.email !==""){
-             setUsers([...users, details])
+        if(name && email !==""){
+             updateUser([...users, details])
            
         change()
         }
@@ -60,41 +65,10 @@ export default ()=>{
             <div className={style.userInfo}>
                 <h2>Users</h2>
                 <main>
-                {/* <Popup trigger={<button className={style.btn}>+ Add</button>} > */}
-
                 {!render?
                 <button className={style.btn} onClick={change}>+ Add</button>:
-                <div>
-                    <button className={style.btn2} >+ Add</button>
-
-                    
-                        <form onSubmit={addUser} id={style.form}>
-                            <div className={style.modalHead} >
-                                <h3>Add Users</h3>
-                                <button type="check" onClick={change}>Close</button>
-                            </div>
-
-                            <input type="text" name="name" value={details.name} id={style.name} placeholder="Name" onChange={detailHandler} />
-
-                            <label htmlFor="Email">Invite By Email</label>
-
-                            <input type="email" name="email" value={details.email} placeholder='Enter your email' id={style.email} onChange={detailHandler} />
-
-                            <input type="file" name="file" onChange={detailHandler}/>
-
-                            <button type="submit"  >Confirm</button>
-
-                        </form>
-                  
-                    
-
-                </div>
-            
-
+                <UserModal formFunction={addUser} rendering={change} func={detailHandler} nameVal={name} emailVal={email}/>
                 }
-                    
-                  
-                {/* </Popup> */}
                 </main>
                
                
@@ -109,20 +83,22 @@ export default ()=>{
                         <th>Email</th>
                     </tr>
                     {
-                     users.map((user, index)=>(
-                        <tr key={index}>
-                            <td><img src="../src/assets/avatar.png" alt="" width='50px' /></td>
+                     users.map((user, index)=>{
+                      
+                        return(
+                             <tr key={index}>
+                            <td>{file && <img src={user.file} alt="" width='50px' />}    </td>
                             <td>{user.name}</td>
                             <td> {user.email} </td>
                         </tr>
-                        
-                     ))  
+                        )
+                       })  
                       
                     }
                  </tbody>
                 </table>
             </section>
-            <HomePg lengths={users.length }/>
+            
             
         </div>
     )

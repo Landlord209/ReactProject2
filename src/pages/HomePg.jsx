@@ -1,12 +1,15 @@
-import { useParams } from "react-router-dom"
+import { useContext } from "react"
+import { formdata } from "../UserContext"
 
-export default ({lengths})=>{
+export default ()=>{
+    const {users}= useContext(formdata)
+ 
    
     
 
     return(
         <>
-         <h1> Number of Registered Users: {lengths} </h1>
+         <h1> Number of Registered Users: {users.length}  </h1>
         </>
     )
    
